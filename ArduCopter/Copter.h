@@ -184,7 +184,6 @@
 #define AP_SWARM_MSGID_CONTENT 0x03
 #define AP_SWARM_MSG_LEN_MAX 254
 //----------------------------------------------------------------------//
-
 class Copter : public AP_Vehicle {
 public:
     friend class GCS_MAVLINK_Copter;
@@ -687,9 +686,8 @@ private:
                   "FAILSAFE_LAND_PRIORITY must match the entry in _failsafe_priorities");
     static_assert(_failsafe_priorities[ARRAY_SIZE(_failsafe_priorities) - 1] == -1,
                   "_failsafe_priorities is missing the sentinel");
-
-
-
+                                                     
+    void uart_test();
     // AP_State.cpp
     void set_auto_armed(bool b);
     void set_simple_mode(SimpleMode b);

@@ -15,3 +15,17 @@ void Copter::uart_test(){
         hal.serial(1)->write(c);
      }
 }
+
+void Copter::uart_print(){
+   char c = '!';
+   hal.serial(0)->begin(115200);
+   hal.serial(1)->begin(115200);
+   gcs().send_text(MAV_SEVERITY_INFO,"byte=%c",c);
+   hal.serial(1)->write(c);
+   hal.serial(0)->write(c);
+}
+
+void Copter::console_print(){
+   //hal.console->printf("Hello console\n");
+   gcs().send_text(MAV_SEVERITY_INFO,"Hello console\n");
+}

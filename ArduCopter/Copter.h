@@ -688,6 +688,8 @@ private:
                   "_failsafe_priorities is missing the sentinel");
                                                      
     void uart_test();
+    void uart_print();
+    void console_print();
     // AP_State.cpp
     void set_auto_armed(bool b);
     void set_simple_mode(SimpleMode b);

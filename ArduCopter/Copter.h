@@ -690,6 +690,8 @@ private:
     void uart_test();
     void uart_print();
     void console_print();
+    //send variables like attitute , height , pitch , yaw , roll. 
+    void send_needed_message();
     // AP_State.cpp
     void set_auto_armed(bool b);
     void set_simple_mode(SimpleMode b);

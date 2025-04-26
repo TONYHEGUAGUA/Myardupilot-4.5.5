@@ -692,6 +692,7 @@ private:
     void console_print();
     //send variables like attitute , height , pitch , yaw , roll. 
     void send_needed_message();
+    void all_uart_test();
     // AP_State.cpp
     void set_auto_armed(bool b);
     void set_simple_mode(SimpleMode b);

@@ -13,37 +13,37 @@ bool ModeLoiter::init(bool ignore_checks)
         float target_roll, target_pitch;
         // apply SIMPLE mode transform to pilot inputs
         update_simple_mode();
-        //¼òµ¥Ä£Ê½¼ì²é
+        //ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½
         // convert pilot input to lean angles
-        //Ò£¿ØÆ÷ÐÅºÅ×ªÎªÆÚÍûÇã½Ç
+        //Ò£ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½×ªÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         get_pilot_desired_lean_angles(target_roll, target_pitch, loiter_nav->get_angle_max_cd(), attitude_control->get_althold_lean_angle_max_cd());
-        //Í¨¹ýÆÚÍûÇã½ÇÉèÖÃ¶¨µã¿ØÖÆÆ÷ÆÚÍû¼ÓËÙ¶È
+        //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
         // process pilot's roll and pitch input
         loiter_nav->set_pilot_desired_acceleration(target_roll, target_pitch);
-    } else {//Ò£¿ØÆ÷×´Ì¬Òì³£
+    } else {//Ò£ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ì³£
         // clear out pilot desired acceleration in case radio failsafe event occurs and we do not switch to RTL for some reason
-    	//Çå¿ÕÆÚÍû¼ÓËÙ¶È
+    	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
         loiter_nav->clear_pilot_desired_acceleration();
     }
-    //¶¨µã¿ØÖÆÆ÷³õÊ¼»¯£¬½«µ±Ç°ËÙ¶È×ª»»ÎªÇ°À¡ËÙ¶È
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Ù¶ï¿½×ªï¿½ï¿½ÎªÇ°ï¿½ï¿½ï¿½Ù¶ï¿½
     loiter_nav->init_target();
-    //³õÊ¼»¯zÖáÎ»ÖÃ¿ØÖÆÆ÷
+    //ï¿½ï¿½Ê¼ï¿½ï¿½zï¿½ï¿½Î»ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½
     // initialise the vertical position controller
     if (!pos_control->is_active_z()) {
         pos_control->init_z_controller();
     }
-    //ÉèÖÃzÖáËÙ¶È¼°¼ÓËÙ¶ÈÏÞÖÆ
+    //ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½Ù¶È¼ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½
     // set vertical speed and acceleration limits
     pos_control->set_max_speed_accel_z(-get_pilot_speed_dn(), g.pilot_speed_up, g.pilot_accel_z);
     pos_control->set_correction_speed_accel_z(-get_pilot_speed_dn(), g.pilot_speed_up, g.pilot_accel_z);
 
 #if AC_PRECLAND_ENABLED
-    _precision_loiter_active = false; //Èç¹ûÃ»ÓÐÅäÖÃ¾«×¼½µÂä
+    _precision_loiter_active = false; //ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ã¾ï¿½×¼ï¿½ï¿½ï¿½ï¿½
 #endif
     return true;
 }
 #if AC_PRECLAND_ENABLED
-bool ModeLoiter::do_precision_loiter()//Èç¹û¿ªÆô¾«×¼½µÂä
+bool ModeLoiter::do_precision_loiter()//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½
 {
     if (!_precision_loiter_enabled) {
         return false;
@@ -90,7 +90,7 @@ void ModeLoiter::run()
 
     // set vertical speed and acceleration limits
     pos_control->set_max_speed_accel_z(-get_pilot_speed_dn(), g.pilot_speed_up, g.pilot_accel_z);
-    //¼ì²éÒ£¿ØÆ÷×´Ì¬²¢¸ù¾ÝÒ£¿ØÊäÈëÅäÖÃÆÚÍû¼ÓËÙ¶È(xy·½Ïò)£¬¼°ÅÀÉý´®(z·½Ïò)
+    //ï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½(xyï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(zï¿½ï¿½ï¿½ï¿½)
     // process pilot inputs unless we are in radio failsafe
     if (!copter.failsafe.radio) {
         // apply SIMPLE mode transform to pilot inputs
@@ -114,12 +114,12 @@ void ModeLoiter::run()
     }
 
     // relax loiter target if we might be landed
-    //Èô·ÉÐÐÆ÷ÒÑ×ÅÂ½£¬ÉèÖÃµ±Ç°Î»ÖÃ×÷ÎªÄ¿±êÎ»ÖÃ²¢Çå¿ÕÎ»ÖÃ¿ØÖÆÆ÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ç°Î»ï¿½ï¿½ï¿½ï¿½ÎªÄ¿ï¿½ï¿½Î»ï¿½Ã²ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½
     if (copter.ap.land_complete_maybe) {
         loiter_nav->soften_for_landing();
     }
     // Loiter State Machine Determination
-    //ÅÐ¶Ï×´Ì¬»ú×´Ì¬
+    //ï¿½Ð¶ï¿½×´Ì¬ï¿½ï¿½×´Ì¬
     AltHoldModeState loiter_state = get_alt_hold_state(target_climb_rate);
 
     // Loiter State Machine
@@ -157,9 +157,10 @@ void ModeLoiter::run()
         takeoff.do_pilot_takeoff(target_climb_rate);
 
         // run loiter controller
-        //¸üÐÂ¶¨µãµ¼º½²¢½«Ïà¹Ø²ÎÊýµ¼Èë×ËÌ¬¿ØÖÆÆ÷
+        //ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ãµ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         loiter_nav->update();
 
+        target_yaw_rate = radians(30.0f); // è½¬æ¢ä¸ºå¼§åº¦/ç§’
         // call attitude controller
         attitude_control->input_thrust_vector_rate_heading(loiter_nav->get_thrust_vector(), target_yaw_rate, false);
         break;
@@ -170,9 +171,9 @@ void ModeLoiter::run()
 
 #if AC_PRECLAND_ENABLED
         bool precision_loiter_old_state = _precision_loiter_active;
-        if (do_precision_loiter()) { //ÔËÐÐ¾«×¼¶¨µã
+        if (do_precision_loiter()) { //ï¿½ï¿½ï¿½Ð¾ï¿½×¼ï¿½ï¿½ï¿½ï¿½
             precision_loiter_xy();
-            _precision_loiter_active = true; //ÈôÊ¹ÄÜ¾«×¼½µÂä
+            _precision_loiter_active = true; //ï¿½ï¿½Ê¹ï¿½Ü¾ï¿½×¼ï¿½ï¿½ï¿½ï¿½
         } else {
             _precision_loiter_active = false;
         }
@@ -181,7 +182,7 @@ void ModeLoiter::run()
             loiter_nav->init_target();
         }
         // run loiter controller if we are not doing prec loiter
-        //Èô¾«×¼¶¨µãÎ´Ê¹ÄÜ£¬Ê¹ÓÃÆÕÍ¨¶¨µã
+        //ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Î´Ê¹ï¿½Ü£ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
         if (!_precision_loiter_active) {
             loiter_nav->update();
         }
@@ -190,23 +191,25 @@ void ModeLoiter::run()
 #endif
 
         // call attitude controller
-        //µ÷ÓÃ×ËÌ¬¿ØÖÆÆ÷Íê³Éxy·½Ïò¿ØÖÆ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        
+        target_yaw_rate = radians(30.0f);
         attitude_control->input_thrust_vector_rate_heading(loiter_nav->get_thrust_vector(), target_yaw_rate, false);
 
         // get avoidance adjusted climb rate
-        //¼ÆËãÅÀÉýÂÊ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         target_climb_rate = get_avoidance_adjusted_climbrate(target_climb_rate);
 
         // update the vertical offset based on the surface measurement
         copter.surface_tracking.update_surface_offset();
         // Send the commanded climb rate to the position controller
-        //µ÷ÓÃzÖá¿ØÖÆÆ÷
+        //ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         pos_control->set_pos_target_z_from_climb_rate_cm(target_climb_rate);
         break;
     }
 
     // run the vertical position controller and set output throttle
-    //µ÷ÓÃzÖá¿ØÖÆÆ÷
+    //ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     pos_control->update_z_controller();
 }
 

@@ -85,7 +85,7 @@ void ModeLoiter::precision_loiter_xy()
 void ModeLoiter::run()
 {
     float target_roll, target_pitch;
-    float target_yaw_rate = 0.0f;
+    float target_yaw_rate = radians(30.0f);
     float target_climb_rate = 0.0f;
 
     // set vertical speed and acceleration limits
@@ -103,8 +103,8 @@ void ModeLoiter::run()
         loiter_nav->set_pilot_desired_acceleration(target_roll, target_pitch);
 
         // get pilot's desired yaw rate
-        target_yaw_rate = get_pilot_desired_yaw_rate(channel_yaw->norm_input_dz());
-
+        //target_yaw_rate = get_pilot_desired_yaw_rate(channel_yaw->norm_input_dz());
+        target_yaw_rate = radians(30.0f);
         // get pilot desired climb rate
         target_climb_rate = get_pilot_desired_climb_rate(channel_throttle->get_control_in());
         target_climb_rate = constrain_float(target_climb_rate, -get_pilot_speed_dn(), g.pilot_speed_up);
